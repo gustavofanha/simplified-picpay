@@ -25,6 +25,12 @@ public class Transaction {
 
     public Transaction() {}
 
+    public Transaction(BigDecimal amount, User sender, User receiver) {
+        this.amount = amount;
+        this.sender = sender;
+        this.receiver = receiver;
+    }
+
     public Long getId() {
         return id;
     }
