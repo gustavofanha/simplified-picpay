@@ -1,6 +1,7 @@
 package dev.fanha.simplified_picpay.entity;
 
 import dev.fanha.simplified_picpay.controller.dto.UserRequestDTO;
+import dev.fanha.simplified_picpay.controller.dto.UserResponseDTO;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -44,6 +45,16 @@ public class User {
         this.password = userDTO.password();
         this.balance = userDTO.balance();
         this.userType = userDTO.userType();
+    }
+
+    public UserResponseDTO toDto() {
+        return new UserResponseDTO(
+                this.id,
+                this.fullName,
+                this.email,
+                this.balance,
+                this.userType,
+                this.creationTimestamp);
     }
 
     public Long getId() {

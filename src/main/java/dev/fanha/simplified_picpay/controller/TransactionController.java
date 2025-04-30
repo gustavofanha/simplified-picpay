@@ -1,6 +1,7 @@
 package dev.fanha.simplified_picpay.controller;
 
 import dev.fanha.simplified_picpay.controller.dto.TransactionRequestDTO;
+import dev.fanha.simplified_picpay.controller.dto.TransactionResponseDTO;
 import dev.fanha.simplified_picpay.entity.Transaction;
 import dev.fanha.simplified_picpay.service.TransactionService;
 import jakarta.validation.Valid;
@@ -21,7 +22,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> transferMoney(@RequestBody @Valid TransactionRequestDTO transactionDTO) {
+    public ResponseEntity<TransactionResponseDTO> transferMoney(@RequestBody @Valid TransactionRequestDTO transactionDTO) {
         var transaction = transactionService.transferMoney(transactionDTO);
         return ResponseEntity.ok(transaction);
     }

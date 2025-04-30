@@ -1,6 +1,8 @@
 package dev.fanha.simplified_picpay.service;
 
 import dev.fanha.simplified_picpay.controller.dto.TransactionRequestDTO;
+import dev.fanha.simplified_picpay.controller.dto.TransactionResponseDTO;
+import dev.fanha.simplified_picpay.controller.dto.UserResponseDTO;
 import dev.fanha.simplified_picpay.entity.Transaction;
 import dev.fanha.simplified_picpay.entity.User;
 import dev.fanha.simplified_picpay.entity.UserType;
@@ -28,7 +30,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public Transaction transferMoney(TransactionRequestDTO transactionDTO) {
+    public TransactionResponseDTO transferMoney(TransactionRequestDTO transactionDTO) {
         var sender = userRepository.findById(transactionDTO.sender()).orElseThrow(
                 () -> new UserNotFoundException(transactionDTO.sender()));
 
@@ -48,7 +50,9 @@ public class TransactionService {
 
         userRepository.save(sender);
         userRepository.save(receiver);
-        return transactionRepository.save(transaction);
+        transactionRepository.save(transaction);
+
+        return new TransactionResponseDTO(transactionAmount, sender.toDto(), receiver.toDto());
     }
 
     public void validateTransaction(TransactionRequestDTO transactionDTO, User sender) {
